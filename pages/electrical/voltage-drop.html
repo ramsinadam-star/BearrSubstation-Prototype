@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html data-theme="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Electrical — BearrSubstation</title>
+<link href="../../assets/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrap">
+<header class="site-header" role="banner">
+<div class="brand">
+<a class="brand-link" href="../../index.html">
+<img alt="BearrSubstation Logo" class="logo" src="../../assets/images/logo.png"/>
+<span class="brand-title">BearrSubstation.com</span>
+</a>
+</div>
+<button aria-controls="primary-nav" aria-expanded="false" aria-label="Open menu" class="hamburger" id="menuToggle">
+<span></span><span></span><span></span>
+</button>
+<nav aria-label="Primary" class="site-nav" id="primary-nav" role="navigation"><a class="nav-link" href="../electrical.html">Electrical</a>
+<a class="nav-link" href="../civil.html">Civil</a>
+<a class="nav-link" href="../structural.html">Structural</a>
+<a class="nav-link" href="../documents.html">Documents</a>
+<a class="nav-link" href="../other.html">Other</a>
+<a class="nav-link" href="../bonus.html">Bonus</a>
+</nav>
+<div class="header-actions">
+<form aria-label="Search calculators" id="search-form" role="search">
+<input aria-label="Search" id="search-input" placeholder="Search calculators &amp; tools…" type="search"/>
+</form>
+<button aria-label="Toggle theme" class="toggle" id="themeToggle">
+<img alt="" src="../../assets/images/bear-toggle.png"/>
+</button>
+</div>
+</header>
+<main class="content" id="content" role="main">
+<section class="tool">
+  <h1>Voltage Drop Calculator</h1>
+  <p class="subtle">NEC-style estimation using K method. Enter one-way distance.</p>
+
+  <form class="grid two" id="vd-form">
+    <div>
+      <label for="vd-phase">System</label>
+      <select id="vd-phase">
+        <option value="single">Single-phase</option>
+        <option value="three">Three-phase</option>
+      </select>
+    </div>
+    <div>
+      <label for="vd-material">Conductor</label>
+      <select id="vd-material">
+        <option value="copper">Copper</option>
+        <option value="aluminum">Aluminum</option>
+      </select>
+    </div>
+    <div>
+      <label for="vd-size">Conductor size</label>
+      <select id="vd-size"></select>
+    </div>
+    <div>
+      <label for="vd-length">One-way length (ft)</label>
+      <input id="vd-length" type="number" min="0" step="1" placeholder="Example: 150" />
+    </div>
+    <div>
+      <label for="vd-volts">Source voltage (V)</label>
+      <input id="vd-volts" type="number" min="1" step="1" placeholder="120, 208, 240, 277, 480" />
+    </div>
+    <div>
+      <label for="vd-amps">Load current (A)</label>
+      <input id="vd-amps" type="number" min="0" step="0.1" placeholder="e.g., 30" />
+    </div>
+  </form>
+
+  <div class="actions">
+    <button class="btn" id="vd-calc">Calculate drop</button>
+  </div>
+
+  <details class="fold">
+    <summary>Suggest a size to meet max % drop</summary>
+    <div class="grid two">
+      <div>
+        <label for="vd-maxpct">Max % drop</label>
+        <input id="vd-maxpct" type="number" min="1" step="0.1" value="3" />
+      </div>
+      <div class="hint">Common design target: 3% branch, 5% feeder+branch.</div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="vd-suggest">Suggest conductor size</button>
+    </div>
+  </details>
+
+  <div id="vd-result" class="mt"></div>
+</section>
+</main>
+<footer class="site-footer" role="contentinfo">
+<div class="footer-inner">
+<p>© <span id="year"></span> BearrSubstation.com</p>
+<nav aria-label="Footer" class="footer-nav">
+<a class="footer-link" href="contact.html">Contact us</a>
+<a class="footer-link" href="privacy.html">Privacy</a>
+<a class="footer-link" href="terms.html">Terms</a>
+</nav>
+</div>
+</footer>
+</div>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/wire-sizing.js"></script>
+<script src="../../assets/js/voltage-drop.js"></script>
+<script defer="" src="../../assets/js/active-nav.js"></script>
+</body>
+</html>

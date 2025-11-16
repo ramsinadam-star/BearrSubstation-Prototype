@@ -1,0 +1,41 @@
+<main id="content" class="content" role="main">
+  <p class="breadcrumb">Civil › Footing Design</p>
+
+  <section class="tool">
+    <h1>Footing Design</h1>
+
+    <form id="calc-form" class="grid two">
+      <div>
+        <label for="a">A</label>
+        <input id="a" type="number" step="0.01" placeholder="Enter A">
+      </div>
+      <div>
+        <label for="b">B</label>
+        <input id="b" type="number" step="0.01" placeholder="Enter B">
+      </div>
+    </form>
+
+    <div class="actions" style="margin-top:.75rem;">
+      <button id="calc-btn" class="btn">Calculate</button>
+      <span class="subtle" style="margin-left:.5rem;">Click Calculate to update</span>
+    </div>
+
+    <div id="result" class="mt"></div>
+  </section>
+
+  <div class="back-link" style="margin-top:1rem;">
+    <a href="../civil.html" class="btn" style="background:transparent;border:1px solid var(--accent-color,#06b6d4);color:var(--accent-color,#06b6d4);text-decoration:none;">
+      ← Go Back to Civil Calculators
+    </a>
+  </div>
+
+  <script src="../../assets/js/lib/ui.js" defer></script>
+  <script src="../../assets/js/lib/math.js" defer></script>
+  <script src="../../assets/js/lib/validate.js" defer></script>
+  <script src="../../assets/js/calc-template.js" defer></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", function(){
+      window.CALC_TEMPLATE.initCalc({ a:"a", b:"b" });
+    });
+  </script>
+</main>
