@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Civil — BearrSubstation</title><link href="../../assets/css/style.css?v=14" rel="stylesheet"/></head><body><header class="site-header" role="banner">
+<div class="brand">
+<a class="brand-link" href="../../index.html">
+<img alt="BearrSubstation Logo" class="logo" src="../../assets/images/logo.png"/>
+<span class="brand-title">BearrSubstation.com</span>
+</a>
+</div>
+<button aria-controls="primary-nav" aria-expanded="false" aria-label="Open menu" class="hamburger" id="menuToggle">
+<span></span><span></span><span></span>
+</button>
+<nav aria-label="Primary" class="site-nav" id="primary-nav" role="navigation"><a class="nav-link" href="../../pages/electrical.html">Electrical</a>
+<a class="nav-link" href="../../pages/civil.html">Civil</a>
+<a class="nav-link" href="../../pages/structural.html">Structural</a>
+<a class="nav-link" href="../../pages/documents.html">Documents</a>
+<a class="nav-link" href="../../pages/other.html">Other</a>
+<a class="nav-link" href="../../pages/bonus.html">Bonus</a>
+</nav>
+<div class="header-actions">
+<form aria-label="Search calculators" id="search-form" role="search">
+<input aria-label="Search" id="search-input" placeholder="Search calculators &amp; tools…" type="search"/>
+</form>
+<button aria-label="Toggle theme" class="toggle" id="themeToggle">
+<img alt="" src="../../assets/images/bear-toggle.png"/>
+</button>
+</div>
+</header>
+<main class="content" id="content" role="main">
+  <a class="back-link" href="../../pages/civil.html">← Go back to Civil Calculators</a>
+  <section class="tool">
+    <h1>Culvert Flow (Manning—Full Flow)</h1>
+    <form class="grid three" id="calc-form">
+      
+        <div><label for="cf-D">Diameter (in)</label><input id="cf-D" type="number" step="0.1"></div>
+        <div><label for="cf-S">Slope S (ft/ft)</label><input id="cf-S" type="number" step="0.0001"></div>
+        <div><label for="cf-n">Manning n</label><input id="cf-n" type="number" step="0.001" value="0.013"></div>
+        
+    </form>
+    <div class="actions" style="margin-top:.75rem;">
+      <button class="btn" id="cf-btn">Calculate</button>
+      <button class="btn ghost" type="reset" onclick="document.getElementById('calc-form').reset(); document.getElementById('cf-result').innerHTML='';">Clear</button>
+    </div>
+    <div id="cf-result" class="mt"></div>
+  </section>
+</main>
+<footer class="site-footer" role="contentinfo">
+<div class="footer-inner">
+<p>© <span id="year"></span> BearrSubstation.com</p>
+<nav aria-label="Footer" class="footer-nav">
+<a class="footer-link" href="../../contact.html">Contact us</a>
+<a class="footer-link" href="../../privacy.html">Privacy</a>
+<a class="footer-link" href="../../terms.html">Terms</a>
+</nav>
+</div>
+</footer><script src="../../assets/js/main.js"></script><script src="../../assets/js/calc-template.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/calc-template.js"></script>
+<script src="../../assets/js/civil/culvert-flow.js"></script>
+<script defer src="../../assets/js/active-nav.js"></script>
+</body></html>

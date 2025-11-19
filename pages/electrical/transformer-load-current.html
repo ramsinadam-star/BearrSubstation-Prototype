@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Electrical — BearrSubstation</title>
+  <link rel="preload" as="image" href="../../assets/images/bear-toggle.png"/>
+  <link rel="preload" as="image" href="../../assets/images/logo.png"/>
+  <link rel="stylesheet" href="../../assets/css/style.css?v=14"/>
+</head>
+<body>
+<div class="wrap">
+<header class="site-header" role="banner">
+<div class="brand">
+<a class="brand-link" href="../../index.html">
+<img alt="BearrSubstation Logo" class="logo" src="../../assets/images/logo.png"/>
+<span class="brand-title">BearrSubstation.com</span>
+</a>
+</div>
+<button aria-controls="primary-nav" aria-expanded="false" aria-label="Open menu" class="hamburger" id="menuToggle">
+<span></span><span></span><span></span>
+</button>
+<nav aria-label="Primary" class="site-nav" id="primary-nav" role="navigation"><a class="nav-link" href="../electrical.html">Electrical</a>
+<a class="nav-link" href="../civil.html">Civil</a>
+<a class="nav-link" href="../structural.html">Structural</a>
+<a class="nav-link" href="../documents.html">Documents</a>
+<a class="nav-link" href="../other.html">Other</a>
+<a class="nav-link" href="../bonus.html">Bonus</a>
+</nav>
+<div class="header-actions">
+<form aria-label="Search calculators" id="search-form" role="search">
+<input aria-label="Search" id="search-input" placeholder="Search calculators &amp; tools…" type="search"/>
+</form>
+<button aria-label="Toggle theme" class="toggle" id="themeToggle">
+<img alt="" src="../../assets/images/bear-toggle.png"/>
+</button>
+</div>
+</header>
+
+<main class="content" id="content" role="main">
+  
+  <section class="tool">
+    <a class="back-link" href="../electrical.html">← Go back to Electrical Calculators</a>
+    <h1>Transformer Load Current</h1>
+    <p class="muted" style="max-width:70ch">
+      Compute full-load current on both primary and secondary sides for single‑phase or three‑phase transformers.
+      <br/><strong>Formulas:</strong> 
+      Single‑phase: <em>I = (kVA × 1000) / V</em>. 
+      Three‑phase: <em>I = (kVA × 1000) / (√3 · V)</em>.
+      <br/><strong>Standards/References:</strong> IEEE C57 (transformers), NEC 450 (transformers).
+    </p>
+
+    <form class="grid two" id="calc-form">
+      <div>
+        <label for="size_kva">Transformer Size (kVA)</label>
+        <input id="size_kva" type="number" step="0.1" value="150"/>
+      </div>
+
+      <div>
+        <label for="phase">Phase</label>
+        <select id="phase">
+          <option value="3">3‑phase</option>
+          <option value="1">Single‑phase</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="vpri">Primary Voltage (V)</label>
+        <input id="vpri" type="number" step="1" value="12470"/>
+      </div>
+
+      <div>
+        <label for="vsec">Secondary Voltage (V)</label>
+        <input id="vsec" type="number" step="1" value="480"/>
+      </div>
+    </form>
+
+    <div class="actions" style="margin-top:.75rem;">
+      <button class="btn" id="calc-btn" type="button">Calculate</button>
+      <button class="btn ghost" id="clear-btn" type="reset">Clear</button>
+    </div>
+
+    <div class="mt" id="result"></div>
+  </section>
+</main>
+
+<script>
+function calcI(kVA, V, ph){
+  if (ph === 1) return (kVA*1000)/(V||1);
+  return (kVA*1000)/(Math.sqrt(3)*(V||1));
+}
+document.getElementById('calc-btn').addEventListener('click', function(){
+  const kVA = Math.max(0, parseFloat(document.getElementById('size_kva').value)||0);
+  const ph = parseInt(document.getElementById('phase').value)||3;
+  const Vp = Math.max(1, parseFloat(document.getElementById('vpri').value)||1);
+  const Vs = Math.max(1, parseFloat(document.getElementById('vsec').value)||1);
+
+  const Ip = calcI(kVA, Vp, ph);
+  const Is = calcI(kVA, Vs, ph);
+
+  document.getElementById('result').innerHTML = `
+  <div class="card soft">
+    <div class="kv stack">
+  <div><span class="k">Primary current</span>&nbsp;<span class="v">${Ip.toFixed(1)} A</span></div>
+  <div style="margin-top:.4rem;"><span class="k">Secondary current</span>&nbsp;<span class="v">${Is.toFixed(1)} A</span></div>
+</div>
+    <p class="note">I = (kVA × 1000) / ${ph===1 ? 'V' : '√3 · V'} (full‑load current).</p>
+  </div>`;
+});
+</script>
+
+<footer class="site-footer" role="contentinfo">
+<div class="footer-inner">
+<p>© <span id="year"></span> BearrSubstation.com</p>
+<nav aria-label="Footer" class="footer-nav">
+<a class="footer-link" href="contact.html">Contact us</a>
+<a class="footer-link" href="privacy.html">Privacy</a>
+<a class="footer-link" href="terms.html">Terms</a>
+</nav>
+</div>
+</footer>
+</div>
+<script src="../../assets/js/main.js"></script>
+<script defer src="../../assets/js/active-nav.js"></script>
+</body>
+</html>

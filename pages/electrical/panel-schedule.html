@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Electrical — BearrSubstation</title>
+  <link rel="preload" as="image" href="../../assets/images/bear-toggle.png"/>
+  <link rel="preload" as="image" href="../../assets/images/logo.png"/>
+  <link rel="stylesheet" href="../../assets/css/style.css?v=14"/>
+</head>
+<body>
+<div class="wrap">
+<header class="site-header" role="banner">
+<div class="brand">
+<a class="brand-link" href="../../index.html">
+<img alt="BearrSubstation Logo" class="logo" src="../../assets/images/logo.png"/>
+<span class="brand-title">BearrSubstation.com</span>
+</a>
+</div>
+<button aria-controls="primary-nav" aria-expanded="false" aria-label="Open menu" class="hamburger" id="menuToggle">
+<span></span><span></span><span></span>
+</button>
+<nav aria-label="Primary" class="site-nav" id="primary-nav" role="navigation"><a class="nav-link" href="../electrical.html">Electrical</a>
+<a class="nav-link" href="../civil.html">Civil</a>
+<a class="nav-link" href="../structural.html">Structural</a>
+<a class="nav-link" href="../documents.html">Documents</a>
+<a class="nav-link" href="../other.html">Other</a>
+<a class="nav-link" href="../bonus.html">Bonus</a>
+</nav>
+<div class="header-actions">
+<form aria-label="Search calculators" id="search-form" role="search">
+<input aria-label="Search" id="search-input" placeholder="Search calculators &amp; tools…" type="search"/>
+</form>
+<button aria-label="Toggle theme" class="toggle" id="themeToggle">
+<img alt="" src="../../assets/images/bear-toggle.png"/>
+</button>
+</div>
+</header>
+<main class="content" id="content" role="main">
+
+<section class="tool">
+<a class="back-link" href="../electrical.html">← Go back to Electrical Calculators</a>
+<h1>Panel Schedule Builder</h1>
+<p class="muted" style="max-width:70ch">Build a simple panel schedule: enter loads per circuit and compute totals and demand.
+  <br/><strong>Standards:</strong> NEC 220 (load calcs), NEC 408 (panelboards).</p>
+<form class="grid two" id="calc-form">
+
+<div class="col-span-2">
+  <textarea id="rows" rows="6" placeholder="One circuit per line: name, kW, PF (optional), continuous (yes/no)
+Example: Lighting 1, 5.0, 0.95, yes
+Receptacles A, 3.2, 0.90, no"></textarea>
+</div>
+<div>
+  <label for="voltage3">System Voltage (V LL)</label>
+  <input id="voltage3" type="number" step="1" value="480"/>
+</div>
+<div>
+  <label for="cont_rule">Apply 125% to 'yes' rows</label>
+  <select id="cont_rule"><option value="1">Yes</option><option value="0">No</option></select>
+</div>
+
+</form>
+<div class="actions" style="margin-top:.75rem;">
+  <button class="btn" id="calc-btn" type="button">Calculate</button>
+  <button class="btn ghost" id="clear-btn" type="reset">Clear</button>
+</div>
+<div class="mt" id="result"></div>
+</section>
+<script defer src="../../assets/js/lib/ui.js"></script>
+<script>
+
+document.getElementById('calc-btn').addEventListener('click', function(){
+  const text = document.getElementById('rows').value.trim();
+  const V = parseFloat(document.getElementById('voltage3').value)||480;
+  const apply = document.getElementById('cont_rule').value === '1';
+  let total_kW=0, total_kVA=0;
+  const lines = text ? text.split(/\n+/):[];
+  let out = '<table class="table"><tr><th>Circuit</th><th>kW (adj)</th><th>kVA</th></tr>';
+  for (const line of lines){
+    const parts = line.split(',').map(s=>s.trim());
+    if (parts.length>=2){
+      const name=parts[0], kW=parseFloat(parts[1])||0, pf=parts[2]?parseFloat(parts[2]):0.95;
+      const cont = parts[3]?/y/i.test(parts[3]):false;
+      const kw_adj = (apply && cont)? kW*1.25 : kW;
+      const kVA = kw_adj/Math.max(0.1,Math.min(1,pf));
+      total_kW+=kw_adj; total_kVA+=kVA;
+      out+=`<tr><td><span class="v">${name}</span></td><td><span class="v">${kw_adj.toFixed(2)}</span></td><td><span class="v">${kVA.toFixed(2)}</span></td></tr>`;
+    }
+  }
+  out+=`</table>`;
+  const I = (total_kVA*1000)/(Math.sqrt(3)*V);
+  document.getElementById('result').innerHTML = `
+<div class="card soft">
+  ${out}
+  <div class="kv">
+    <div><span class="k">Total kW</span>&nbsp;<span class="v">${total_kW.toFixed(2)} kW</span></div>
+    <div><span class="k">Total kVA</span>&nbsp;<span class="v">${total_kVA.toFixed(2)} kVA</span></div>
+    <div><span class="k">Feeder current</span>&nbsp;<span class="v">${I.toFixed(1)} A</span></div>
+  </div>
+</div>
+`;
+});
+
+</script>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+<div class="footer-inner">
+<p>© <span id="year"></span> BearrSubstation.com</p>
+<nav aria-label="Footer" class="footer-nav">
+<a class="footer-link" href="contact.html">Contact us</a>
+<a class="footer-link" href="privacy.html">Privacy</a>
+<a class="footer-link" href="terms.html">Terms</a>
+</nav>
+</div>
+</footer>
+</div>
+<script src="../../assets/js/main.js"></script>
+<script defer src="../../assets/js/active-nav.js"></script>
+</body>
+</html>

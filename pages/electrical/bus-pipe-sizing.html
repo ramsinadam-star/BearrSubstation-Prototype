@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html data-theme="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Bus Pipe Sizing — BearrSubstation</title>
+<link href="../../assets/css/style.css?v=14" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrap">
+<header class="site-header" role="banner">
+<div class="brand">
+<a class="brand-link" href="../../index.html">
+<img alt="BearrSubstation Logo" class="logo" src="../../assets/images/logo.png"/>
+<span class="brand-title">BearrSubstation.com</span>
+</a>
+</div>
+<button aria-controls="primary-nav" aria-expanded="false" aria-label="Open menu" class="hamburger" id="menuToggle">
+<span></span><span></span><span></span>
+</button>
+<nav aria-label="Primary" class="site-nav" id="primary-nav" role="navigation"><a class="nav-link" href="../electrical.html">Electrical</a>
+<a class="nav-link" href="../civil.html">Civil</a>
+<a class="nav-link" href="../structural.html">Structural</a>
+<a class="nav-link" href="../documents.html">Documents</a>
+<a class="nav-link" href="../other.html">Other</a>
+<a class="nav-link" href="../bonus.html">Bonus</a>
+</nav>
+<div class="header-actions">
+<form aria-label="Search calculators" id="search-form" role="search">
+<input aria-label="Search" id="search-input" placeholder="Search calculators &amp; tools…" type="search"/>
+</form>
+<button aria-label="Toggle theme" class="toggle" id="themeToggle">
+<img alt="" src="../../assets/images/bear-toggle.png"/>
+</button>
+</div>
+</header>
+<main class="content" id="content" role="main"><section class="mobile-search"><form aria-label="Search calculators" id="search-form" role="search">
+<input aria-label="Search" id="search-input" placeholder="Search calculators &amp; tools…" type="search"/>
+</form></section>
+<section class="tool">
+<a class="back-link" href="../electrical.html">← Go back to Electrical Calculators</a><h1>Bus Pipe Sizing</h1>
+<p class="subtle">Quick selector for substation pipe bus using NPS with Schedule 40 &amp; 80. Base mode uses a material screen (J·A). Advanced mode follows IEEE 605-style mechanical sizing.</p>
+<form class="grid two" id="bus-form" onsubmit="return false;">
+<div>
+<label for="bus-material">Material</label>
+<select id="bus-material">
+<option value="al_6063_t6">Aluminum 6063‑T6</option>
+<option value="al_6061_t6">Aluminum 6061‑T6</option>
+<option value="cu_etp">Copper ETP</option>
+</select>
+</div>
+<div>
+<label for="bus-current">Required current (A)</label>
+<input id="bus-current" min="0" step="1" type="number" value="3000"/>
+</div>
+<div class="full">
+</div>
+</form><div class="actions"><button class="btn" id="bus-calc">Calculate</button><button class="btn ghost" id="clear-btn" type="button">Clear</button></div>
+<details class="fold mt" id="bus-adv">
+<summary>Advanced (IEEE 605 mechanical)</summary>
+<div class="grid three mt">
+<div>
+<label for="bus-fault">Fault current (kA RMS, 1‑cycle)</label>
+<input id="bus-fault" min="0" placeholder="e.g. 40" step="1" type="number"/>
+</div>
+<div>
+<label for="bus-k">Asymmetry factor k (peak/RMS)</label>
+<input id="bus-k" min="1.0" step="0.1" type="number" value="2.6"/>
+</div>
+<div>
+<label for="bus-phase">Phase spacing (in)</label>
+<input id="bus-phase" min="1" step="1" type="number" value="36"/>
+</div>
+<div>
+<label for="bus-span">Support span (ft)</label>
+<input id="bus-span" min="1" step="0.5" type="number" value="20"/>
+</div>
+<div>
+<label for="bus-sigma">Allowable bending stress (ksi)</label>
+<input id="bus-sigma" min="5" placeholder="auto from material" step="1" type="number"/>
+</div>
+</div>
+<div class="mt">
+<button class="btn" id="bus-adv-calc" type="button">Calculate Mechanical</button>
+</div>
+<p class="hint">Force/length uses (μ₀/2π)·(k·I<sub>RMS</sub>)²/D for parallel phases. Simply supported span with uniform load: M = wL²/8, σ = M·c/I. Thermal ampacity not computed here.</p>
+</details>
+<div class="mt" id="bus-result-elec"></div>
+<div class="mt" id="bus-result-mech"></div>
+</section>
+</main>
+<footer class="site-footer" role="contentinfo">
+<div class="footer-inner">
+<p>© <span id="year"></span> BearrSubstation.com</p>
+<nav aria-label="Footer" class="footer-nav">
+<a class="footer-link" href="contact.html">Contact us</a>
+<a class="footer-link" href="privacy.html">Privacy</a>
+<a class="footer-link" href="terms.html">Terms</a>
+</nav>
+</div>
+</footer>
+</div>
+<script src="../../assets/js/lib/ui.js"></script>
+<script src="../../assets/js/pipe-bus-sizing.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script defer="" src="../../assets/js/active-nav.js"></script>
+</body>
+</html>

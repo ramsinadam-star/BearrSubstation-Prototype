@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Electrical — BearrSubstation</title>
+  <link rel="preload" as="image" href="../../assets/images/bear-toggle.png"/>
+  <link rel="preload" as="image" href="../../assets/images/logo.png"/>
+  <link rel="stylesheet" href="../../assets/css/style.css?v=14"/>
+</head>
+<body>
+<div class="wrap">
+<header class="site-header" role="banner">
+<div class="brand">
+<a class="brand-link" href="../../index.html">
+<img alt="BearrSubstation Logo" class="logo" src="../../assets/images/logo.png"/>
+<span class="brand-title">BearrSubstation.com</span>
+</a>
+</div>
+<button aria-controls="primary-nav" aria-expanded="false" aria-label="Open menu" class="hamburger" id="menuToggle">
+<span></span><span></span><span></span>
+</button>
+<nav aria-label="Primary" class="site-nav" id="primary-nav" role="navigation"><a class="nav-link" href="../electrical.html">Electrical</a>
+<a class="nav-link" href="../civil.html">Civil</a>
+<a class="nav-link" href="../structural.html">Structural</a>
+<a class="nav-link" href="../documents.html">Documents</a>
+<a class="nav-link" href="../other.html">Other</a>
+<a class="nav-link" href="../bonus.html">Bonus</a>
+</nav>
+<div class="header-actions">
+<form aria-label="Search calculators" id="search-form" role="search">
+<input aria-label="Search" id="search-input" placeholder="Search calculators &amp; tools…" type="search"/>
+</form>
+<button aria-label="Toggle theme" class="toggle" id="themeToggle">
+<img alt="" src="../../assets/images/bear-toggle.png"/>
+</button>
+</div>
+</header>
+<main class="content" id="content" role="main">
+
+<section class="tool">
+<a class="back-link" href="../electrical.html">← Go back to Electrical Calculators</a>
+<h1>Ground Electrode Conductor (GEC) Sizing</h1>
+<p class="muted" style="max-width:70ch">Size the grounding electrode conductor based on the largest ungrounded service-entrance conductor.
+    <br/><strong>Standards:</strong> NEC 250.66 (GEC sizing). This is a simplified look-up and does not replace the full table (Al/parallel conductors, exceptions may apply).</p>
+<form class="grid two" id="calc-form">
+
+<div>
+  <label for="largest_kcmil">Largest Ungrounded Conductor (kcmil Cu equivalent)</label>
+  <input id="largest_kcmil" type="number" step="1" placeholder="e.g., 500"/>
+</div>
+
+</form>
+<div class="actions" style="margin-top:.75rem;">
+  <button class="btn" id="calc-btn" type="button">Calculate</button>
+  <button class="btn ghost" id="clear-btn" type="reset">Clear</button>
+</div>
+<div class="mt" id="result"></div>
+</section>
+<script defer src="../../assets/js/lib/ui.js"></script>
+<script>
+
+function pickGEC(kcmil){
+  if (kcmil <= 2) return "8 AWG Cu";
+  if (kcmil <= 3) return "6 AWG Cu";
+  if (kcmil <= 53) return "4 AWG Cu"; // rough for up to #1/0 equiv
+  if (kcmil <= 67) return "2 AWG Cu"; // rough for up to #2/0 equiv
+  if (kcmil <= 85) return "1 AWG Cu";
+  if (kcmil <= 107) return "1/0 AWG Cu";
+  if (kcmil <= 350) return "2/0 AWG Cu";
+  if (kcmil <= 600) return "3/0 AWG Cu";
+  if (kcmil <= 1100) return "250 kcmil Cu";
+  return "350 kcmil Cu (max per typical ranges)";
+}
+document.getElementById('calc-btn').addEventListener('click', function(){
+  const k = parseFloat(document.getElementById('largest_kcmil').value)||0;
+  const size = pickGEC(k);
+  document.getElementById('result').innerHTML = `
+<div class="card soft">
+  <div class="kv">
+    <div><span class="k">Suggested GEC</span>&nbsp;<span class="v">${size}</span></div>
+  </div>
+  <p class="note">Per NEC 250.66 simplified guidance.</p>
+</div>
+`;
+});
+
+</script>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+<div class="footer-inner">
+<p>© <span id="year"></span> BearrSubstation.com</p>
+<nav aria-label="Footer" class="footer-nav">
+<a class="footer-link" href="contact.html">Contact us</a>
+<a class="footer-link" href="privacy.html">Privacy</a>
+<a class="footer-link" href="terms.html">Terms</a>
+</nav>
+</div>
+</footer>
+</div>
+<script src="../../assets/js/main.js"></script>
+<script defer src="../../assets/js/active-nav.js"></script>
+</body>
+</html>
